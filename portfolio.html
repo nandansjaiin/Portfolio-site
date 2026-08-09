@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nandan Jain — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --coral:#16A34A;
+    --yellow:#A3E635;
+    --teal:#10B981;
+    --sky:#059669;
+    --ink:#0B2A1D;
+    --paper:#F6FFF9;
+    --paper-2:#E7F6EC;
+    --line: rgba(11,42,29,0.12);
+    --radius: 18px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:-0.02em;
+  }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--yellow); color:var(--ink); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- Layout helpers ---------- */
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+  section{ padding:110px 0; position:relative; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; font-weight:600;
+    color:var(--ink); opacity:0.55;
+    text-transform:uppercase; letter-spacing:0.12em;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:''; width:8px; height:8px; border-radius:50%;
+    background:var(--coral); display:inline-block;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:0.4; transform:scale(0.8);} }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(255,253,246,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:20px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo-mark{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(135deg, var(--coral), var(--yellow));
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:700; font-size:15px;
+    box-shadow:0 4px 12px rgba(255,93,93,0.35);
+  }
+  .nav-links{ display:flex; gap:34px; font-size:15px; font-weight:600; }
+  .nav-links a{ opacity:0.75; transition:opacity 0.2s, color 0.2s; position:relative; }
+  .nav-links a:hover{ opacity:1; color:var(--coral); }
+  .nav-cta{
+    background:var(--ink); color:var(--paper) !important;
+    padding:10px 20px; border-radius:999px; font-size:14px; font-weight:600;
+    opacity:1 !important;
+    transition:transform 0.2s, background 0.2s;
+  }
+  .nav-cta:hover{ background:var(--coral); transform:translateY(-2px); }
+  @media (max-width:760px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:190px 0 120px;
+    position:relative;
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(255,202,58,0.35), transparent),
+      radial-gradient(500px 260px at -5% 10%, rgba(61,180,242,0.25), transparent);
+  }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center; }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{
+    font-size:clamp(40px, 6vw, 68px);
+    line-height:1.03;
+    font-weight:700;
+  }
+  .hero h1 .hl{
+    background:linear-gradient(100deg, var(--coral), var(--yellow) 60%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.sub{
+    margin-top:22px; font-size:19px; max-width:520px; opacity:0.75;
+  }
+  .hero-actions{ display:flex; gap:14px; margin-top:36px; flex-wrap:wrap; }
+  .btn{
+    padding:14px 26px; border-radius:999px; font-weight:600; font-size:15px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.2s, box-shadow 0.2s, background 0.2s;
+    cursor:pointer; border:none;
+  }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 10px 24px rgba(22,26,58,0.25); }
+  .btn-ghost{ background:transparent; color:var(--ink); border:2px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--coral); color:var(--coral); transform:translateY(-3px); }
+
+  .stat-row{ display:flex; gap:34px; margin-top:54px; flex-wrap:wrap; }
+  .stat b{ font-family:'Space Grotesk', sans-serif; font-size:30px; display:block; }
+  .stat span{ font-size:13px; opacity:0.6; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; }
+
+  /* ---------- Signature: pipeline visual ---------- */
+  .pipeline-card{
+    background:var(--ink); border-radius:24px; padding:30px 26px;
+    box-shadow:0 24px 60px rgba(11,42,29,0.35), 0 0 0 1px rgba(16,185,129,0.08);
+    color:var(--paper);
+    position:relative;
+    transform:rotate(1.2deg);
+  }
+  .pipeline-card::after{
+    content:''; position:absolute; inset:-30px; z-index:-1; border-radius:34px;
+    background:radial-gradient(circle at 70% 20%, rgba(16,185,129,0.35), transparent 60%);
+    filter:blur(10px);
+  }
+  .pipeline-card::before{
+    content:''; position:absolute; inset:0;
+    border-radius:24px; padding:1px;
+    background:linear-gradient(135deg, var(--coral), var(--yellow), var(--teal));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    pointer-events:none;
+  }
+  .pipeline-head{ display:flex; align-items:center; gap:8px; margin-bottom:22px; }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .pipeline-title{ font-family:'JetBrains Mono', monospace; font-size:12px; opacity:0.6; margin-left:6px; }
+
+  .stage{
+    display:flex; align-items:center; gap:14px;
+    padding:13px 12px; border-radius:12px;
+    margin-bottom:8px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .stage-icon{
+    width:34px; height:34px; border-radius:9px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .stage:nth-child(2) .stage-icon{ background:var(--coral); }
+  .stage:nth-child(3) .stage-icon{ background:var(--yellow); color:var(--ink); }
+  .stage:nth-child(4) .stage-icon{ background:var(--teal); }
+  .stage:nth-child(5) .stage-icon{ background:var(--sky); }
+  .stage-body{ flex:1; }
+  .stage-name{ font-weight:600; font-size:14.5px; }
+  .stage-desc{ font-size:12px; opacity:0.55; font-family:'JetBrains Mono', monospace; margin-top:2px;}
+  .stage-status{
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+    padding:4px 9px; border-radius:999px; background:rgba(6,214,160,0.18); color:var(--teal);
+    font-weight:600;
+  }
+  .pipe-connector{ width:2px; height:14px; background:rgba(255,255,255,0.15); margin-left:34px; }
+
+  /* ---------- Marquee ---------- */
+  .marquee{
+    border-top:2px solid var(--ink); border-bottom:2px solid var(--ink);
+    background:var(--yellow); padding:16px 0; overflow:hidden; white-space:nowrap;
+  }
+  .marquee-track{ display:inline-flex; gap:40px; animation:scroll 26s linear infinite; }
+  .marquee span{ font-family:'JetBrains Mono', monospace; font-weight:600; font-size:15px; }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- Section headers ---------- */
+  .section-head{ max-width:600px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(30px,4vw,42px); font-weight:700; }
+  .section-head p{ opacity:0.7; margin-top:12px; font-size:16.5px; }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start; }
+  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-photo{
+    aspect-ratio:4/5; border-radius:20px;
+    background:
+      linear-gradient(160deg, var(--coral) 0%, var(--yellow) 55%, var(--teal) 100%);
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:22px;
+  }
+  .about-photo .tag{
+    background:rgba(22,26,58,0.85); color:var(--paper);
+    padding:8px 14px; border-radius:10px; font-family:'JetBrains Mono',monospace;
+    font-size:13px; font-weight:600;
+  }
+  .about-photo::after{
+    content:'⎈'; position:absolute; top:20px; right:20px; font-size:54px; opacity:0.25; color:white;
+  }
+  .about-text p{ margin-bottom:18px; font-size:16.5px; opacity:0.85; }
+  .about-text p b{ color:var(--ink); opacity:1; }
+
+  .pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+  .pill{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; font-weight:600;
+    padding:8px 14px; border-radius:999px; border:1.5px solid var(--line);
+    background:var(--paper-2);
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  @media (max-width:900px){ .skills-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skill-card{
+    background:var(--paper-2); border:1.5px solid var(--line); border-radius:16px;
+    padding:26px 22px; transition:transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+  .skill-card:hover{ transform:translateY(-6px); box-shadow:0 16px 30px rgba(22,26,58,0.12); border-color:transparent; }
+  .skill-card .ic{
+    width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:20px; margin-bottom:16px;
+  }
+  .skill-card:nth-child(4n+1) .ic{ background:rgba(255,93,93,0.15); }
+  .skill-card:nth-child(4n+2) .ic{ background:rgba(255,202,58,0.28); }
+  .skill-card:nth-child(4n+3) .ic{ background:rgba(6,214,160,0.18); }
+  .skill-card:nth-child(4n+4) .ic{ background:rgba(61,180,242,0.18); }
+  .skill-card h4{ font-size:16px; margin-bottom:8px; }
+  .skill-card p{ font-size:13.5px; opacity:0.65; }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{ position:relative; padding-left:36px; }
+  .timeline::before{
+    content:''; position:absolute; left:6px; top:6px; bottom:6px; width:3px;
+    background:repeating-linear-gradient(180deg, var(--coral) 0 10px, var(--yellow) 10px 20px, var(--teal) 20px 30px);
+    border-radius:3px;
+  }
+  .tl-item{ position:relative; padding-bottom:44px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute; left:-36px; top:4px; width:15px; height:15px; border-radius:50%;
+    background:var(--ink); border:3px solid var(--paper); box-shadow:0 0 0 2px var(--ink);
+  }
+  .tl-meta{ font-family:'JetBrains Mono', monospace; font-size:13px; opacity:0.55; margin-bottom:6px; }
+  .tl-item h3{ font-size:21px; margin-bottom:4px; }
+  .tl-item .role{ font-weight:600; color:var(--coral); font-size:15px; margin-bottom:12px; display:block; }
+  .tl-item ul{ padding-left:20px; opacity:0.8; font-size:15px; }
+  .tl-item li{ margin-bottom:6px; }
+
+  /* ---------- Projects ---------- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:900px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{
+    border-radius:18px; padding:28px 24px; position:relative; overflow:hidden;
+    min-height:230px; display:flex; flex-direction:column; justify-content:space-between;
+    transition:transform 0.25s;
+  }
+  .proj-card:hover{ transform:translateY(-6px) rotate(-0.3deg); }
+  .proj-card.c1{ background:linear-gradient(160deg,#E3F8E9,#C9F0D4); }
+  .proj-card.c2{ background:linear-gradient(160deg,#EEF9C7,#DCF3A0); }
+  .proj-card.c3{ background:linear-gradient(160deg,#D2F5E3,#A7E8C6); }
+  .proj-tag{
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:700;
+    background:var(--ink); color:var(--paper); padding:5px 11px; border-radius:999px;
+    display:inline-block; width:fit-content; margin-bottom:16px;
+  }
+  .proj-card h3{ font-size:20px; margin-bottom:10px; }
+  .proj-card p{ font-size:14px; opacity:0.75; margin-bottom:16px; }
+  .proj-stack{ display:flex; gap:8px; flex-wrap:wrap; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; opacity:0.7; }
+
+  /* ---------- Contact ---------- */
+  .contact-band{
+    background:var(--ink); color:var(--paper); border-radius:28px;
+    padding:70px 50px; text-align:center; position:relative; overflow:hidden;
+  }
+  .contact-band::before{
+    content:''; position:absolute; width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,202,58,0.35), transparent 70%);
+    top:-140px; right:-100px;
+  }
+  .contact-band::after{
+    content:''; position:absolute; width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(6,214,160,0.3), transparent 70%);
+    bottom:-140px; left:-80px;
+  }
+  .contact-band h2{ font-size:clamp(30px,5vw,46px); position:relative; }
+  .contact-band p{ opacity:0.7; margin-top:14px; font-size:16.5px; position:relative; }
+  .contact-actions{ display:flex; gap:14px; justify-content:center; margin-top:34px; flex-wrap:wrap; position:relative; }
+  .btn-yellow{ background:var(--yellow); color:var(--ink); }
+  .btn-yellow:hover{ transform:translateY(-3px); box-shadow:0 10px 24px rgba(255,202,58,0.35); }
+  .btn-outline{ background:transparent; color:var(--paper); border:2px solid rgba(255,255,255,0.3); }
+  .btn-outline:hover{ border-color:var(--paper); transform:translateY(-3px); }
+
+  footer{ padding:40px 0; text-align:center; font-size:13.5px; opacity:0.5; font-family:'JetBrains Mono', monospace; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-mark">NJ</span> Nandan Jain</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="nav-cta">Say hi 👋</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">status: transitioning to DevOps</div>
+      <h1>Hi, I'm Nandan —<br>from Financial Analysis <br>to <span class="hl">build pipelines</span>.</h1>
+      <p class="sub">B.Com (Hons.) graduate and finance analyst bringing sharp analytical rigor into DevOps. Currently building hands-on skills across AWS, Azure, Docker, Kubernetes and CI/CD — pursuing certification to make the switch official.</p>
+      <div class="hero-actions">
+        <a href="#skills" class="btn btn-primary">See my toolkit ↓</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>40+</b><span>bank accounts analyzed</span></div>
+        <div class="stat"><b>12+</b><span>DevOps tools learned</span></div>
+        <div class="stat"><b>7.0</b><span>CGPA, B.Com Hons.</span></div>
+      </div>
+    </div>
+
+    <div class="pipeline-card">
+      <div class="pipeline-head">
+        <div class="dot" style="background:var(--coral)"></div>
+        <div class="dot" style="background:var(--yellow)"></div>
+        <div class="dot" style="background:var(--teal)"></div>
+        <span class="pipeline-title">career.yml — nandan-jain</span>
+      </div>
+
+      <div class="stage">
+        <div class="stage-icon">🎓</div>
+        <div class="stage-body">
+          <div class="stage-name">Foundation</div>
+          <div class="stage-desc">B.Com (Hons.), University of Delhi</div>
+        </div>
+        <div class="stage-status">passed</div>
+      </div>
+      <div class="pipe-connector"></div>
+      <div class="stage">
+        <div class="stage-icon">📊</div>
+        <div class="stage-body">
+          <div class="stage-name">Finance & Analysis</div>
+          <div class="stage-desc">Accountant → Financial Analyst</div>
+        </div>
+        <div class="stage-status">passed</div>
+      </div>
+      <div class="pipe-connector"></div>
+      <div class="stage">
+        <div class="stage-icon">☁️</div>
+        <div class="stage-body">
+          <div class="stage-name">Cloud & Automation</div>
+          <div class="stage-desc">AWS · Azure · Docker · Kubernetes</div>
+        </div>
+        <div class="stage-status">in progress</div>
+      </div>
+      <div class="pipe-connector"></div>
+      <div class="stage">
+        <div class="stage-icon">🚀</div>
+        <div class="stage-body">
+          <div class="stage-name">DevOps Engineer</div>
+          <div class="stage-desc">Coding Bolt Academy certification</div>
+        </div>
+        <div class="stage-status">pursuing</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>AWS &nbsp;•&nbsp; AZURE &nbsp;•&nbsp; DOCKER &nbsp;•&nbsp; KUBERNETES &nbsp;•&nbsp; JENKINS &nbsp;•&nbsp; TERRAFORM &nbsp;•&nbsp; ANSIBLE &nbsp;•&nbsp; PROMETHEUS &nbsp;•&nbsp; GRAFANA &nbsp;•&nbsp; GIT &nbsp;•&nbsp; SQL &nbsp;•&nbsp; PYTHON &nbsp;•&nbsp;</span>
+    <span>AWS &nbsp;•&nbsp; AZURE &nbsp;•&nbsp; DOCKER &nbsp;•&nbsp; KUBERNETES &nbsp;•&nbsp; JENKINS &nbsp;•&nbsp; TERRAFORM &nbsp;•&nbsp; ANSIBLE &nbsp;•&nbsp; PROMETHEUS &nbsp;•&nbsp; GRAFANA &nbsp;•&nbsp; GIT &nbsp;•&nbsp; SQL &nbsp;•&nbsp; PYTHON &nbsp;•&nbsp;</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <span class="tag">Nandan Jain — Finance → DevOps</span>
+    </div>
+    <div class="about-text">
+      <div class="eyebrow" style="margin-bottom:14px;">about me</div>
+      <h2 class="reveal" style="font-size:clamp(28px,3.6vw,38px); margin-bottom:22px;">Analytical roots, automated future</h2>
+      <p class="reveal"><b>I'm a business-oriented B.Com (Hons.) graduate</b> currently working as a Financial Analyst, now redirecting that same analytical discipline toward Cloud and DevOps. Years of reconciling data, auditing records, and reporting to stakeholders taught me to be precise, methodical, and calm under deadline pressure — skills that translate directly to running reliable infrastructure.</p>
+      <p class="reveal">Alongside my day-to-day finance work, I've been building hands-on proficiency in AWS, Azure, Docker, Kubernetes, Jenkins, Terraform and Ansible, and I'm currently pursuing a DevOps Engineer with Cloud & Automation certification from Coding Bolt Academy.</p>
+      <p class="reveal">I'm looking to bring strong problem-solving, stakeholder communication, and deployment fundamentals into a DevOps Engineer role where I can keep learning and shipping.</p>
+      <div class="pill-row reveal">
+        <span class="pill">📊 Financial Analysis</span>
+        <span class="pill">☁️ Cloud (AWS & Azure)</span>
+        <span class="pill">🔁 CI/CD Fundamentals</span>
+        <span class="pill">🗣️ Stakeholder Communication</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">toolbox</div>
+      <h2>What's in the stack so far</h2>
+      <p>The tools I use for financial reporting today, and the DevOps stack I'm building fluency in.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><div class="ic">☁️</div><h4>Cloud Platforms</h4><p>AWS & Azure — core services, provisioning and cloud fundamentals.</p></div>
+      <div class="skill-card reveal"><div class="ic">🐳</div><h4>Containers</h4><p>Docker & Kubernetes for building and orchestrating workloads.</p></div>
+      <div class="skill-card reveal"><div class="ic">🏗️</div><h4>Infra as Code</h4><p>Terraform & Ansible for automating and configuring environments.</p></div>
+      <div class="skill-card reveal"><div class="ic">🔁</div><h4>CI/CD</h4><p>Jenkins for building and understanding release pipelines.</p></div>
+      <div class="skill-card reveal"><div class="ic">📊</div><h4>Monitoring</h4><p>Prometheus & Grafana for infrastructure observability basics.</p></div>
+      <div class="skill-card reveal"><div class="ic">🔧</div><h4>Version Control</h4><p>Git & GitHub for source control and collaborative workflows.</p></div>
+      <div class="skill-card reveal"><div class="ic">🐍</div><h4>Scripting & Data</h4><p>Python & SQL for data cleaning, validation and automation.</p></div>
+      <div class="skill-card reveal"><div class="ic">📈</div><h4>Reporting & Analysis</h4><p>Excel, dashboard reporting and KPI reporting for decision-making.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">career log</div>
+      <h2>Where I've worked from</h2>
+      <p>My professional record in finance — the discipline I'm now carrying into DevOps.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">Dec 2024 — Present</div>
+        <h3>Senior Process Associate</h3>
+        <span class="role">Outsourcing Hub India · Financial Analyst</span>
+        <ul>
+          <li>Analyzed financial data across 40+ bank accounts.</li>
+          <li>Prepared analytical reports to support decision-making.</li>
+          <li>Collaborated with cross-functional teams on financial reporting.</li>
+          <li>Resolved discrepancies and maintained accurate documentation.</li>
+        </ul>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">Nov 2023 — Dec 2024</div>
+        <h3>Accountant</h3>
+        <span class="role">SAJ & Associates</span>
+        <ul>
+          <li>Conducted HDFC Bank stock audits and Aditya Birla audit assignments.</li>
+          <li>Prepared and reviewed financial records, journal entries and vouchers.</li>
+          <li>Coordinated with dealers and bank stakeholders to ensure audit compliance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">education & certification</div>
+      <h2>Building the foundation</h2>
+      <p>The academic and certification track behind the transition into DevOps.</p>
+    </div>
+    <div class="proj-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="proj-card c1 reveal">
+        <div>
+          <span class="proj-tag">Education</span>
+          <h3>B.Com (Hons.)</h3>
+          <p>University of Delhi · 2020 – 2023 · CGPA: 7.0</p>
+        </div>
+        <div class="proj-stack">Business & Finance Fundamentals</div>
+      </div>
+      <div class="proj-card c3 reveal">
+        <div>
+          <span class="proj-tag">Certification · In Progress</span>
+          <h3>DevOps Engineer with Cloud & Automation</h3>
+          <p>Coding Bolt Academy · Currently pursuing, building hands-on skills across cloud, containers and CI/CD.</p>
+        </div>
+        <div class="proj-stack">AWS · Azure · Docker · Kubernetes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-band reveal">
+      <div class="eyebrow" style="justify-content:center; opacity:0.8;">let's talk</div>
+      <h2>Open to DevOps Engineer roles</h2>
+      <p>Based in Delhi, India. Happy to talk about cloud, automation, or how a finance background sharpens an infrastructure mindset.</p>
+      <div class="contact-actions">
+        <a href="mailto:nandansjaiin@gmail.com" class="btn btn-yellow">Nandansjaiin@gmail.com</a>
+        <a href="https://wa.me/+918750213330" class="btn btn-outline">+91 87502 13330</a>
+        <a href="https://www.linkedin.com/in/nandan-jain-b905831b8/" class="btn btn-outline">LinkedIn ↗</a>
+        <a href="https://github.com/nandansjaiin" class="btn btn-outline">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Nandan Jain · built with ☁️, 🐳 and a lot of coffee</div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
